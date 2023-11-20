@@ -1,0 +1,139 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* styles.css */
+
+        /* Reset some default styles for better consistency across browsers */
+        body, h1, h2, p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a, form button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none; /* Remove underlines from links */
+        }
+
+        nav a:hover, form button:hover {
+            background-color: #45a049;
+        }
+
+        nav a:focus, form button:focus {
+            outline: 2px solid #fff;
+        }
+
+        nav a[href="{{ url_for('logout') }}"] {
+    background-color: #f44336; /* Red color for logout button */
+}
+
+        nav a[href="{{ url_for('logout') }}"]:hover {
+            background-color: #d32f2f;
+        }
+
+        nav a[href="{{ url_for('logout') }}"]:focus {
+            outline: 2px solid #d32f2f;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styles for the job listings */
+        .job-listing {
+            border-bottom: 1px solid #ccc;
+            padding: 15px 0;
+        }
+
+        .job-title {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .job-company {
+            color: #666;
+        }
+
+        .job-description {
+            margin-top: 10px;
+            color: #777;
+        }
+
+        /* Styles for the login and registration forms */
+        form {
+            margin-top: 20px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Responsive design for smaller screens */
+        @media only screen and (max-width: 600px) {
+            main {
+                padding: 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}Job Portal{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Job Portal</h1>
+        <nav>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Sign Up</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Job Portal</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Applications</title>
+</head>
+<body>
+    <h1>Applications</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Application ID</th>
+                <th>Company name</th>
+                <th>Job Title</th>
+                <th>Skills Required by company</th>
+                <th>Candidate Username</th>
+                <th>Candidate Skill</th>
+                <th>Status</th>
+                <th>Decision</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+                <tr>
+                    <td>{{ application.app_id}}</td>
+                    <td>{{ application.company}}</td>
+                    <td>{{ application.job_title}}</td>
+                    <td>{{ application.skills_req}}</td>
+                    <td>{{ application.candidate}}</td>
+                    <td>{{ application.c_skills}}</td>
+                    <td>{{ application.skills_req }}</td>
+                    <td>{{ application.status }}</td>
+
+                    <td>
+                        {% if application.decision %}
+                            Decision Made
+                        {% else %}
+                            <form method="post" action="{{url_for('view_applications')}}">
+                                <input type="hidden" name="application_id" value="{{ application.app_id }}">
+                                <select name="decision">
+                                    <option value="accept">Accept</option>
+                                    <option value="reject">Reject</option>
+                                </select>
+                                <button type="submit">Submit Decision</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!-- templates/create_job.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    {{ super() }}
+    <section>
+        <h3>Create Job</h3>
+        <form method="POST" action="{{ url_for('create_job') }}">
+            {{ form.hidden_tag() }}
+            <label for="title">Job Title:</label>
+            {{ form.title() }}
+            <label for="description">Description:</label>
+            {{ form.description() }}
+            <label for="required_skills">Required Skills:</label>
+            {{ form.required_skills() }}
+            <button type="submit">Create Job</button>
+        </form>
+    </section>
+{% endblock %}

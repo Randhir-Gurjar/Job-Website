@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Job Portal{% endblock %}
+
+{% block content %}
+  <style>
+    /* Add your CSS styles here */
+    h2 {
+      color: #007bff; /* Blue color for the heading */
+    }
+
+    ul {
+      list-style-type: none; /* Remove bullet points from the list */
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px; /* Add some spacing between list items */
+    }
+
+    a {
+      text-decoration: none; /* Remove underlines from hyperlinks */
+      color: #333; /* Set link color */
+    }
+
+    a:hover {
+      text-decoration: underline; /* Underline on hover */
+    }
+  </style>
+
+  <h2>Admin Dashboard</h2>
+
+  <ul>
+    <li><a href="{{ url_for('view_candidates') }}">View Candidates</a></li>
+    <li><a href="{{ url_for('view_applications') }}">View Applications</a></li>
+    <li><a href="{{ url_for('job_applications_graph') }}">Job Applications Graph</a></li>
+  </ul>
+{% endblock %}

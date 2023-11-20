@@ -1,0 +1,11 @@
+<!-- templates/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Job Portal{% endblock %}
+
+{% block content %}
+    <section>
+        <h2>Welcome, {{ current_user.username }}!</h2>
+        <!-- Add content specific to the user role (admin, company, candidate) -->
+    </section>
+{% endblock %}

@@ -1,0 +1,134 @@
+<!-- templates/candidate_dashboard.html -->
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style>/* Add these styles to your existing CSS file or create a new one */
+
+    /* Style for the candidate dashboard section */
+    section {
+        margin: 20px;
+        padding: 20px;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    
+    /* Style for the heading of the candidate dashboard */
+    h3 {
+        color: #333;
+    }
+    
+    /* Style for the container of skills */
+    .container-skill {
+        margin-top: 20px;
+    }
+    
+    /* Style for the skills list */
+    .container-skill ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .container-skill li {
+        margin-bottom: 10px;
+    }
+    
+    /* Style for the "Add New Skill" form */
+    .container-skill form {
+        margin-top: 10px;
+    }
+    
+    /* Style for the container of available jobs */
+    .container {
+        margin-top: 20px;
+    }
+    
+    /* Style for the available jobs list */
+    .container ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .container li {
+        margin-bottom: 15px;
+    }
+    
+    /* Style for the "Apply" button in the available jobs list */
+    .container button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    
+    /* Style for the applied jobs section */
+    .container h2 {
+        margin-top: 20px;
+    }
+    
+    /* Style for the list of applied jobs */
+    .container ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .container li {
+        margin-bottom: 20px;
+    }
+    
+    /* Style for the job status */
+    .container li span {
+        font-weight: bold;
+        color: #333;
+    }
+    </style>
+    {{ super() }}
+    <section>
+        <h3>Candidate Dashboard</h3>
+        <!-- Add candidate-specific content or functionality -->
+        <div class="container-skill">
+            <h2>Your Skills</h2>
+            <ul>
+                {% for skill in skillset %}
+                    <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Add New Skill</h3>
+            <form method="post" action="{{ url_for('candidate_dashboard') }}">
+                <input type="text" name="new_skill" placeholder="Enter new skill">
+                <input type="submit" value="Add Skill">
+            </form>
+        </div>
+        <div class="container">
+            <h3>Available Jobs Matching Your Skillset</h3>
+            <ul>
+                {% for job in available_jobs %}
+                    <li>
+                        {{ job.title }} - Description: {{ job.description }} - Required Skills: {{ job.required_skills }}
+                        <form method="post" action="{{ url_for('candidate_dashboard') }}">
+                            <input type="hidden" name="job_id_to_apply" value="{{ job.id }}">
+                            <button type="submit">Apply</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <h2>Applied Jobs</h2>
+            <ul>
+                {% for job, stat in applied_jobs|zip(status) %}
+                    <li>
+                        <strong>{{ job.title }}</strong><br>
+                        Description: {{ job.description }}<br>
+                        Required Skills: {{ job.required_skills }}<br>
+                        Status: {{ stat }}<br>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}
